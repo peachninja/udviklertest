@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "Webshop";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<div class="container">
+    <div class="well well-sm">
+        <strong>Category Title</strong>
+        <div class="btn-group">
+            <a href="#" id="list" class="btn btn-default btn-sm">
+                <span class="fa fa-list"></span> List
+            </a> <a href="#" id="grid" class="btn btn-default btn-sm">
+                <span class="fa fa-th"></span> Grid
+            </a>
+        </div>
+    </div>
+    <div id="products" class="row list-group">
+        <div class="item  col-xs-4 col-lg-4">
+            <div class="thumbnail">
+                @foreach (var item in ViewBag.ProductList)
+                {
+                    <div class="caption">
+                        <h4 class="group inner list-group-item-heading">
+                            @item.ProductName
+                        </h4>
+                        <p class="group inner list-group-item-text">
+                            @item.Description
+                        </p>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <p class="lead">
+                                    kr. 244,00
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <a class="btn btn-success pull-right product" href="#" data-product-id="@item.ProductGuid">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+        @*<div class="item  col-xs-4 col-lg-4">
+                <div class="thumbnail">
+
+                    <div class="caption">
+                        <h4 class="group inner list-group-item-heading">
+                            Jacopo Biondi Santi, Braccale 2011
+                        </h4>
+                        <p class="group inner list-group-item-text">
+                            Braccale er et fremragende og dygtigt resultat af Sangiovese BBS11 blended med 20 % Merlot. Farven i glasset er intens rubinrød med lilla reflekser. Bouqueten er elegant og kompleks med intens duft af røde bær, florale og krydrede noter. I smagen spiller den bløde afrundende Merlot flot op til Sangioveses delikate karakter. Vedholdenhed i smag og styrke og en nærmest pludselig overdådig tannisk sensation gør Braccale til stor, flot vin.
+                        </p>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <p class="lead">
+                                    kr. 138,80
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <a class="btn btn-success pull-right product" href="#" data-product-id="1004057">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item  col-xs-4 col-lg-4">
+                <div class="thumbnail">
+
+                    <div class="caption">
+                        <h4 class="group inner list-group-item-heading">
+                            Jacopo Biondi Santi, Castello di Montepo 2010
+                        </h4>
+                        <p class="group inner list-group-item-text">
+                            Vinen er lavet på 95 % BBS11 Sangiovese, klonen fra Il Greppo, og blandet med 5 % Cabernet Sauvignon. Vinen er intens rubinrød med sekundære lilla toner. I næsen vinøs, æterisk og elegant med strejf af friske blomster. Paletten er tør, krydret, meget velstruktureret med markant tannin.
+                        </p>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <p class="lead">
+                                    kr. 199,00
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <a class="btn btn-success pull-right product" href="#"  data-product-id="1004058">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.product').on("click", function () {
+            var getUrl = window.location.host;
+            console.log(getUrl);
+            var product = {
+                ProductId: $(this).attr("data-product-id"),
+            }
+            $.ajax({
+                type: "GET",
+                url: "http://" + getUrl + "/Product/AddToCart",
+                data: product ,
+                success: function (data) {
+                    console.log(data)
+                }
+
+            });
+        });
+
+    });
+
+</script>
